@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Азық-түлік Дүкен - Кассалық Жүйе</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 20px;
+        }
+
+        header h1 {
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        header h1 i {
+            font-size: 2.2rem;
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 12px 20px;
+            border-radius: 25px;
+        }
+
+        nav a:hover, nav a.active {
+            color: white;
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 120px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(16,185,129,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(34,197,94,0.1) 0%, transparent 50%);
+            opacity: 0.5;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h2 {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #166534;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: #166534;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 500;
+        }
+
+        /* Stats Cards */
+        .stats-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            padding: 3rem 2.5rem;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(16,185,129,0.15);
+            border: 2px solid rgba(16,185,129,0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 35px 80px rgba(16,185,129,0.25);
+        }
+
+        .stat-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .stat-card:nth-child(1) .stat-icon { color: #10b981; }
+        .stat-card:nth-child(2) .stat-icon { color: #f59e0b; }
+        .stat-card:nth-child(3) .stat-icon { color: #ef4444; }
+        .stat-card:nth-child(4) .stat-icon { color: #3b82f6; }
+
+        .stat-value {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #166534;
+            margin-bottom: 1rem;
+        }
+
+        .stat-label {
+            color: #4b5563;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Features */
+        .features {
+            padding: 120px 0;
+            background: white;
+        }
+
+        .features h3 {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 5rem;
+            position: relative;
+        }
+
+        .features h3::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 3px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 3rem;
+        }
+
+        .card {
+            background: white;
+            padding: 3.5rem 3rem;
+            border-radius: 24px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.08);
+            border: 1px solid rgba(16,185,129,0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .card:nth-child(1)::before { background: linear-gradient(135deg, #48bb78, #38a169); }
+        .card:nth-child(2)::before { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .card:nth-child(3)::before { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .card:nth-child(4)::before { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+        .card:hover {
+            transform: translateY(-20px);
+            box-shadow: 0 40px 90px rgba(0,0,0,0.15);
+        }
+
+        .card i {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .card:nth-child(1) i { color: #48bb78; }
+        .card:nth-child(2) i { color: #f59e0b; }
+        .card:nth-child(3) i { color: #3b82f6; }
+        .card:nth-child(4) i { color: #ef4444; }
+
+        .card h4 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+        }
+
+        .card p {
+            color: #4b5563;
+            font-size: 1.15rem;
+            line-height: 1.8;
+        }
+
+        /* Жаңа CTA Section - Бағалау формасы */
+        .cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 70%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(255,255,255,0.05) 0%, transparent 50%);
+            opacity: 0.3;
+        }
+
+        .cta .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta h3 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .cta p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+        }
+
+        /* Бағалау формасы */
+        .pricing-form {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 3rem;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #f8fafc;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .rating-group {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        .rating-star {
+            font-size: 2rem;
+            color: #fbbf24;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .rating-star:hover,
+        .rating-star.active {
+            color: #f59e0b;
+            transform: scale(1.2);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #ffd700, #ffed4a);
+            color: #b8860b;
+            padding: 20px 45px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 25px 50px rgba(255,215,0,0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 60px rgba(255,215,0,0.5);
+            color: #b8860b;
+        }
+
+        .btn i {
+            font-size: 1.3rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #1e293b;
+            color: white;
+            text-align: center;
+            padding: 4rem 0 2rem;
+        }
+
+        footer p {
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h2 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .stats-grid, .cards {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .features, .cta {
+                padding: 80px 0;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-form {
+                padding: 2rem;
+                margin: 0 1rem 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-card, .card, .pricing-form {
+            animation: fadeInUp 0.7s ease forwards;
+            opacity: 0;
+        }
+
+        .stat-card:nth-child(1), .card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2), .card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3), .card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4), .card:nth-child(4) { animation-delay: 0.4s; }
+        .pricing-form { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-store-alt"></i>Азық-түлік Дүкен</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active"><i class="fas fa-home"></i> Басты</a></li>
+                    <li><a href="products.html"><i class="fas fa-box"></i> Тауарлар</a></li>
+                    <li><a href="sales.html"><i class="fas fa-shopping-cart"></i> Сату</a></li>
+                    <li><a href="report.html"><i class="fas fa-chart-bar"></i> Есеп</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Азық-түлік Дүкен толық автоматтандыру</h2>
+            <p>Сүт, нан, ет, жеміс-күлі барлық тауарларды тез басқарыңыз. Күнделікті сату, қойма есебі және толық аналитика жүйесімен бизнесіңізді дамытыңыз.</p>
+            <a href="products.html" class="btn">
+                <i class="fas fa-rocket"></i>
+                Жүйені бастау
+            </a>
+        </div>
+    </section>
+
+    <!-- Статистика бөлімі -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-money-bill-wave stat-icon"></i>
+                    <div class="stat-value">3.85M</div>
+                    <div class="stat-label">Бүгінгі кіріс (тг)</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-receipt stat-icon"></i>
+                    <div class="stat-value">342</div>
+                    <div class="stat-label">Бүгінгі чектер</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-shopping-basket stat-icon"></i>
+                    <div class="stat-value">2.1K</div>
+                    <div class="stat-label">Сатылған өнімдер</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users stat-icon"></i>
+                    <div class="stat-value">289</div>
+                    <div class="stat-label">Бүгінгі клиенттер</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h3>Азық-түлік Дүкен толық басқару</h3>
+            <div class="cards">
+                <div class="card">
+                    <i class="fas fa-box-open"></i>
+                    <h4>Толық қойма есебі</h4>
+                    <p>Сүт өнімдерінен бастап жеміс-күліге дейін барлық тауарларды толық бақылау. Аз қалған өнімдер туралы ескертулер және автоматты қайта тапсырыс.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-cash-register"></i>
+                    <h4>Жылдам сату жүйесі</h4>
+                    <p>Штрих-код сканерімен 3 секундта сату. Барлық төлем түрлері: ақша, карта, QR. Автоматты чек басып шығару және клиент картасы.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-chart-pie"></i>
+                    <h4>Аналитика және есеп</h4>
+                    <p>Қай тауар қанша сатылды? Қай уақытта клиенттер көп? Барлық деректерді графикпен және Excel экспортымен толық талдау.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h4>Телефоннан басқару</h4>
+                    <p>Android/iOS қосымшасы арқылы дүкенді кез келген жерден бақылаңыз. Қойма, сату, есептер барлығы телефонда қолжетімді.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Жаңа Бағалау CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h3>Біздің жүйені бағалаңыз!</h3>
+            <p>Сіздің пікіріңіз біз үшін маңызды. 1 минутта баға беріңіз және жеңілдік алыңыз!</p>
+            
+            <div class="pricing-form">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Атыңыз</label>
+                            <input type="text" placeholder="Аты-жөніңізді енгізіңіз" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Телефон</label>
+                            <input type="tel" placeholder="+7 (XXX) XXX-XX-XX" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Жүйені бағаңыз (1-5)</label>
+                        <div class="rating-group">
+                            <span class="rating-star" data-rating="1">★</span>
+                            <span class="rating-star" data-rating="2">★</span>
+                            <span class="rating-star" data-rating="3">★</span>
+                            <span class="rating-star" data-rating="4">★</span>
+                            <span class="rating-star" data-rating="5">★</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Пікіріңіз</label>
+                        <textarea rows="4" placeholder="Не ұнады? Не жақсартсақ болады?"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">
+                        <i class="fas fa-star"></i>
+                        Бағалау және жеңілдік алу
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>©️ 2026 Азық-түлік Дүкен - Кассалық Жүйе. Барлық құқықтар қорғалған.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Жұлдызша рейтинг функционалдығы
+        document.querySelectorAll('.rating-star').forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.dataset.rating;
+                const stars = document.querySelectorAll('.rating-star');
+                
+                stars.forEach((s, index) => {
+                    if (index < rating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Hover эффекті
+        document.querySelectorAll('.rating-star').forEach(star => {
+            star.addEventListener('mouseenter', function() {
+                const rating = this.dataset.rating;
+                const stars = document.querySelectorAll('.rating-star');
+                
+                stars.forEach((s, index) => {
+                    if (index < rating) {
+                        s.style.color = '#f59e0b';
+                        s.style.transform = 'scale(1.2)';
+                    }
+                });
+            });
+
+            document.addEventListener('mouseleave', function() {
+                const activeStars = document.querySelectorAll('.rating-star.active');
+                document.querySelectorAll('.rating-star').forEach(star => {
+                    star.style.color = '#fbbf24';
+                    star.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

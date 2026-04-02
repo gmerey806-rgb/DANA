@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Толық Есеп | Азық-түлік ДҮКЕН - Кассалық Жүйе</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Барлық стильдер сақталды - өзгертпедім */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 20px;
+        }
+
+        header h1 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        header h1 i {
+            font-size: 2rem;
+            background: rgba(255,255,255,0.2);
+            padding: 8px;
+            border-radius: 12px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 25px;
+        }
+
+        nav a:hover, nav a.active {
+            color: white;
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .user-profile {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .user-profile i {
+            font-size: 1.8rem;
+            color: white;
+            padding: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .main-content {
+            margin-top: 120px;
+            padding: 2rem 0 4rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            border: 2px solid #f0f9ff;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .stat-card:nth-child(1)::before { background: linear-gradient(135deg, #10b981, #059669); }
+        .stat-card:nth-child(2)::before { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .stat-card:nth-child(3)::before { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .stat-card:nth-child(4)::before { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .stat-card:nth-child(5)::before { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .stat-card:nth-child(6)::before { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+
+        .stat-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+        }
+
+        .stat-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .stat-card:nth-child(1) .stat-icon { color: #10b981; }
+        .stat-card:nth-child(2) .stat-icon { color: #f59e0b; }
+        .stat-card:nth-child(3) .stat-icon { color: #ef4444; }
+        .stat-card:nth-child(4) .stat-icon { color: #3b82f6; }
+        .stat-card:nth-child(5) .stat-icon { color: #8b5cf6; }
+        .stat-card:nth-child(6) .stat-icon { color: #06b6d4; }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Жаңа стильдер - Басқару панелі */
+        .report-controls {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+            border: 2px solid #f0f9ff;
+            text-align: center;
+        }
+
+        .report-buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .report-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 24px 32px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.3);
+            height: 160px;
+            text-decoration: none;
+        }
+
+        .report-btn:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(16, 185, 129, 0.4);
+        }
+
+        .report-btn i {
+            font-size: 2.5rem;
+        }
+
+        .report-btn.daily { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .report-btn.weekly { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+        .report-btn.monthly { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
+        .report-btn.yearly { background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); }
+
+        .report-btn.daily i { color: #10b981; }
+        .report-btn.weekly i { color: #f59e0b; }
+        .report-btn.monthly i { color: #3b82f6; }
+        .report-btn.yearly i { color: #8b5cf6; }
+
+        /* Есеп панелі */
+        .report-panel {
+            display: none;
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .report-panel.active {
+            display: block;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 3px solid #f0f9ff;
+        }
+
+        .report-title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #10b981, #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .report-close {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .report-close:hover {
+            background: #dc2626;
+            transform: scale(1.05);
+        }
+
+        .report-table {
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+
+        .report-table thead {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .report-table th {
+            padding: 20px 24px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .report-table td {
+            padding: 20px 24px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .report-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .total-row {
+            background: linear-gradient(135deg, #10b981, #059669) !important;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            justify-content: center;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .report-buttons-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-store-alt"></i>Азық-түлік Дүкен</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Басты</a></li>
+                    <li><a href="products.html">Тауарлар</a></li>
+                    <li><a href="sales.html">Сату</a></li>
+                    <li><a href="report.html" class="active">Толық Есеп</a></li>
+                </ul>
+            </nav>
+            <div class="user-profile">
+                <i class="fas fa-user-circle" title="Профиль"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="container">
+            <!-- Статистика карталары -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-money-bill-wave stat-icon"></i>
+                    <div class="stat-value" data-value="3850000">0 тг</div>
+                    <div class="stat-label">Бүгінгі кіріс</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-receipt stat-icon"></i>
+                    <div class="stat-value" data-value="342">0</div>
+                    <div class="stat-label">Бүгінгі чектер</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-shopping-basket stat-icon"></i>
+                    <div class="stat-value" data-value="2156">0</div>
+                    <div class="stat-label">Сатылған өнім</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users stat-icon"></i>
+                    <div class="stat-value" data-value="289">0</div>
+                    <div class="stat-label">Клиенттер</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-chart-line stat-icon"></i>
+                    <div class="stat-value" data-value="24.8">0</div>
+                    <div class="stat-label">Өсім (бүгін)</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-exclamation-triangle stat-icon"></i>
+                    <div class="stat-value" data-value="7">0</div>
+                    <div class="stat-label">Қойма ескерту</div>
+                </div>
+            </div>
+
+            <!-- Басқару панелі - Жаңа дизайн -->
+            <div class="report-controls">
+                <h2 style="font-size: 2.2rem; margin-bottom: 1rem; background: linear-gradient(135deg, #10b981, #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">📊 Есеп таңдау</h2>
+                <p style="color: #64748b; font-size: 1.1rem; margin-bottom: 2rem;">Керекті есеп түрін таңдап, толық мәліметтерді қараңыз</p>
+                
+                <div class="report-buttons-grid">
+                    <button class="report-btn daily" onclick="showReport('daily')">
+                        <i class="fas fa-calendar-day"></i>
+                        <span>Күндік есеп</span>
+                        <small>Бүгінгі сату статистикасы</small>
+                    </button>
+                    
+                    <button class="report-btn weekly" onclick="showReport('weekly')">
+                        <i class="fas fa-calendar-week"></i>
+                        <span>Апталық есеп</span>
+                        <small>Соңғы апталар динамикасы</small>
+                    </button>
+                    
+                    <button class="report-btn monthly" onclick="showReport('monthly')">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Айлық есеп</span>
+                        <small>Ай бойынша толық талдау</small>
+                    </button>
+                    
+                    <button class="report-btn yearly" onclick="showReport('yearly')">
+                        <i class="fas fa-chart-area"></i>
+                        <span>Жылдық есеп</span>
+                        <small>Жылдық прогресс және жоспар</small>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Есеп панелері -->
+            <div id="daily-panel" class="report-panel">
+                <div class="report-header">
+                    <h3 class="report-title"><i class="fas fa-calendar-day"></i> Күндік есеп</h3>
+                    <button class="report-close" onclick="closeReport('daily')"><i class="fas fa-times"></i> Жабу</button>
+                </div>
+                <div class="btn-group">
+                    <button class="btn" onclick="exportReport('daily')"><i class="fas fa-file-excel"></i> Excel</button>
+                    <button class="btn" onclick="printReport('daily')"><i class="fas fa-print"></i> Баспа</button>
+                </div>
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th>Уақыт</th>
+                            <th>Чектер</th>
+                            <th>Сомасы</th>
+                            <th>Өнімдер</th>
+                            <th>Клиенттер</th>
+                            <th>Орташа чек</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dailyTableBody"></tbody>
+                </table>
+            </div>
+
+            <div id="weekly-panel" class="report-panel">
+                <div class="report-header">
+                    <h3 class="report-title"><i class="fas fa-calendar-week"></i> Апталық есеп</h3>
+                    <button class="report-close" onclick="closeReport('weekly')"><i class="fas fa-times"></i> Жабу</button>
+                </div>
+                <div class="btn-group">
+                    <button class="btn" onclick="exportReport('weekly')"><i class="fas fa-file-excel"></i> Excel</button>
+                </div>
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th>Апта</th>
+                            <th>Чектер</th>
+                            <th>Сомасы</th>
+                            <th>Өнімдер</th>
+                            <th>Клиенттер</th>
+                            <th>Өсім %</th>
+                        </tr>
+                    </thead>
+                    <tbody id="weeklyTableBody"></tbody>
+                </table>
+            </div>
+
+            <div id="monthly-panel" class="report-panel">
+                <div class="report-header">
+                    <h3 class="report-title"><i class="fas fa-calendar-alt"></i> Айлық есеп</h3>
+                    <button class="report-close" onclick="closeReport('monthly')"><i class="fas fa-times"></i> Жабу</button>
+                </div>
+                <div class="btn-group">
+                    <button class="btn" onclick="exportReport('monthly')"><i class="fas fa-file-excel"></i> Excel</button>
+                </div>
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th>Ай</th>
+                            <th>Чектер</th>
+                            <th>Сомасы</th>
+                            <th>Өнімдер</th>
+                            <th>Клиенттер</th>
+                            <th>Күніне орт.</th>
+                        </tr>
+                    </thead>
+                    <tbody id="monthlyTableBody"></tbody>
+                </table>
+            </div>
+
+            <div id="yearly-panel" class="report-panel">
+                <div class="report-header">
+                    <h3 class="report-title"><i class="fas fa-chart-area"></i> Жылдық есеп</h3>
+                    <button class="report-close" onclick="closeReport('yearly')"><i class="fas fa-times"></i> Жабу</button>
+                </div>
+                <div class="btn-group">
+                    <button class="btn" onclick="exportReport('yearly')"><i class="fas fa-file-excel"></i> Excel</button>
+                </div>
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th>Жыл</th>
+                            <th>Жалпы кіріс</th>
+                            <th>Чектер</th>
+                            <th>Өнімдер</th>
+                            <th>Клиенттер</th>
+                            <th>Прогресс</th>
+                        </tr>
+                    </thead>
+                    <tbody id="yearlyTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Деректер базасы (өзгермеді)
+        const groceryData = {
+            daily: [
+                { time: '09:00-12:00', checks: 89, amount: 985000, products: 456, customers: 78, avg: 11067 },
+                { time: '12:00-15:00', checks: 123, amount: 1420000, products: 689, customers: 112, avg: 11545 },
+                { time: '15:00-18:00', checks: 156, amount: 1785000, products: 876, customers: 134, avg: 11442 },
+                { time: '18:00-21:00', checks: 245, amount: 2890000, products: 1456, customers: 210, avg: 11796 },
+                { time: 'ЖАЛПЫ', checks: 342, amount: 3850000, products: 2156, customers: 289, avg: 13318 }
+            ],
+            weekly: [
+                { week: '12-18.02', checks: 1987, amount: 21450000, products: 12456, customers: 1567, growth: '+12.4%' },
+                { week: '05-11.02', checks: 1765, amount: 18700000, products: 10987, customers: 1432, growth: '+8.7%' },
+                { week: '29.01-04.02', checks: 1654, amount: 17200000, products: 10345, customers: 1345, growth: '+15.2%' }
+            ],
+            monthly: [
+                { month: 'Сәуір 2026', checks: 8567, amount: 92300000, products: 54321, customers: 6789, dailyAvg: '3,076,667' },
+                { month: 'Наурыз 2026', checks: 8234, amount: 89200000, products: 52134, customers: 6543, dailyAvg: '2,838,095' },
+                { month: 'Ақпан 2026', checks: 7890, amount: 85400000, products: 49876, customers: 6234, dailyAvg: '3,056,429' }
+            ],
+            yearly: [
+                { year: '2026 (жоспар)', income: '1,250,000,000', checks: 285000, products: '1.8+млн', customers: '245,000', progress: '+18%' },
+                { year: '2025', income: '1,058,000,000', checks: 241000, products: '1.52млн', customers: '207,000', progress: '+12%' }
+            ]
+        };
+
+        // Анимация функциясы
+        function animateValue(el, start, end, duration) {
+            let startTime = null;
+            const step = (time) => {
+                if (!startTime) startTime = time;
+                const progress = Math.min((time - startTime) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                el.textContent = typeof end === 'number' ? value.toLocaleString() : value + '%';
+                if (progress < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+        }
+
+        // Статистика анимациясы
+        document.querySelectorAll('.stat-value').forEach(stat => {
+            const value = stat.getAttribute('data-value');
+            setTimeout(() => animateValue(stat, 0, parseFloat(value.replace(',', '')), 2500), 500);
+        });
+
+        // Есептерді басқару функциялары
+        function showReport(type) {
+            // Барлық панелдерді жабу
+            document.querySelectorAll('.report-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            
+            // Тиісті панельді ашу және деректерді жүктеу
+            const panel = document.getElementById(type + '-panel');
+            panel.classList.add('active');
+            
+            if (type === 'daily') loadDailyReport();
+            else if (type === 'weekly') loadWeeklyReport();
+            else if (type === 'monthly') loadMonthlyReport();
+            else if (type === 'yearly') loadYearlyReport();
+            
+            showNotification(`✅ ${type === 'daily' ? 'Күндік' : type === 'weekly' ? 'Апталық' : type === 'monthly' ? 'Айлық' : 'Жылдық'} есеп ашылды!`, 'success');
+        }
+
+        function closeReport(type) {
+            document.getElementById(type + '-panel').classList.remove('active');
+            showNotification('📋 Есеп жабылды', 'info');
+        }
+
+        // Есептерді жүктеу функциялары
+        function loadDailyReport() {
+            const tbody = document.getElementById('dailyTableBody');
+            tbody.innerHTML = '';
+            groceryData.daily.forEach((row, index) => {
+                const tr = document.createElement('tr');
+                if (index === groceryData.daily.length - 1) {
+                    tr.className = 'total-row';
+                }
+                tr.innerHTML = `
+                    <td>${row.time}</td>
+                    <td>${row.checks.toLocaleString()}</td>
+                    <td>${row.amount.toLocaleString()} тг</td>
+                    <td>${row.products.toLocaleString()}</td>
+                    <td>${row.customers.toLocaleString()}</td>
+                    <td>${row.avg.toLocaleString()} тг</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function loadWeeklyReport() {
+            const tbody = document.getElementById('weeklyTableBody');
+            tbody.innerHTML = '';
+            groceryData.weekly.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${row.week}</td>
+                    <td>${row.checks.toLocaleString()}</td>
+                    <td>${row.amount.toLocaleString()} тг</td>
+                    <td>${row.products.toLocaleString()}</td>
+                    <td>${row.customers.toLocaleString()}</td>
+                    <td style="color: #10b981">${row.growth}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function loadMonthlyReport() {
+            const tbody = document.getElementById('monthlyTableBody');
+            tbody.innerHTML = '';
+            groceryData.monthly.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${row.month}</td>
+                    <td>${row.checks.toLocaleString()}</td>
+                    <td>${row.amount.toLocaleString()} тг</td>
+                    <td>${row.products.toLocaleString()}</td>
+                    <td>${row.customers.toLocaleString()}</td>
+                    <td>${row.dailyAvg} тг</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function loadYearlyReport() {
+            const tbody = document.getElementById('yearlyTableBody');
+            tbody.innerHTML = '';
+            groceryData.yearly.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${row.year}</td>
+                    <td>${row.income.toLocaleString()} тг</td>
+                    <td>${row.checks.toLocaleString()}</td>
+                    <td>${row.products}</td>
+                    <td>${row.customers}</td>
+                    <td style="color: #10b981; font-weight: bold">${row.progress}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Экспорт және басып шығару
+        function exportReport(type) {
+            showNotification(`📥 ${type} есебі Excel файлына экспортталды!`, 'success');
+        }
+
+        function printReport(type) {
+            showNotification('🖨️ Баспа дайындалуда...', 'info');
+            setTimeout(() => {
+                window.print();
+                showNotification('✅ Баспа сәтті!', 'success');
+            }, 800);
+        }
+
+        // Билдиборд хабарламалары
+        function showNotification(message, type = 'info') {
+            const colors = {
+                success: '#10b981', 
+                info: '#3b82f6', 
+                warning: '#f59e0b', 
+                error: '#ef4444'
+            };
+            
+            const notif = document.createElement('div');
+            notif.style.cssText = `
+                position: fixed; top: 140px; right: 20px; background: ${colors[type]};
+                color: white; padding: 16px 24px; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+                z-index: 5000; font-weight: 600; font-size: 0.95rem; max-width: 350px; line-height: 1.4;
+                transform: translateX(400px); transition: all 0.4s ease;
+            `;
+            notif.textContent = message;
+            document.body.appendChild(notif);
+            
+            setTimeout(() => notif.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                notif.style.transform = 'translateX(400px)';
+                setTimeout(() => notif.remove(), 400);
+            }, 5000);
+        }
+
+        // Бастапқы жүктеу
+        document.addEventListener('DOMContentLoaded', function() {
+            // Статистика анимациясы
+        });
+    </script>
+</body>
+</html>
